@@ -1,3 +1,5 @@
+// json-server --watch data/db.json --port 8000
+//trying to check if this gets committed, testtttt
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Notes from "./components/Notes";
 import Create from "./components/Create";

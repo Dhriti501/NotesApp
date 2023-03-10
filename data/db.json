@@ -1,40 +1,46 @@
 {
   "notes": [
     {
-      "title": "My Note 1",
-      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et porttitor nibh, vel blandit lorem. Phasellus ullamcorper ullamcorper erat non accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada.",
-      "category": "todo",
+      "title": "note 1 ",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum leo massa, quis aliquam est condimentum vitae. In faucibus efficitur cursus. Aenean volutpat posuere consequat. Aenean feugiat, enim egestas imperdiet aliquam, tortor purus auctor magna, eu pharetra ex erat vel mi. ",
+      "category": "reminder",
       "id": 1
     },
     {
-      "title": "tisha's bday",
-      "details": "this is a reminder for tisha's bday",
+      "title": "note 2",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum leo massa, quis aliquam est condimentum vitae. In faucibus efficitur cursus. ",
       "category": "reminder",
+      "id": 2
+    },
+    {
+      "title": "note 3",
+      "details": "Nulla facilisi. Suspendisse potenti. Aenean in augue in nibh ultrices rutrum in ac est. Sed in facilisis sapien.\\n\\nNullam convallis tempus finibus. Nullam dolor justo, pretium at nulla eu, lobortis mollis ligula. Curabitur in gravida quam. Sed tincidunt, justo.",
+      "category": "work",
       "id": 3
     },
     {
-      "title": "another note",
-      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et libero et leo pellentesque pellentesque. Phasellus nec orci diam. Donec commodo sed quam sit amet rutrum. Ut sit amet porta diam. Curabitur auctor viverra massa, nec rhoncus nisl consectetur posuere. Sed sit amet lacinia magna. Donec felis ligula, volutpat nec.",
-      "category": "work",
+      "title": "note 4",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum leo massa, quis aliquam est condimentum vitae. In faucibus efficitur cursus. Aenean volutpat posuere consequat. Aenean feugiat, enim egestas imperdiet aliquam, tortor purus auctor magna, eu pharetra ex erat vel mi. Nullam dolor justo, pretium at nulla eu, lobortis mollis ligula. Curabitur in gravida quam. Sed tincidunt, justo.",
+      "category": "reminder",
+      "id": 4
+    },
+    {
+      "title": "note 5",
+      "details": "Aenean in augue in nibh ultrices rutrum in ac est. Sed in facilisis sapien.\\n\\nNullam convallis tempus finibus. Nullam dolor justo, pretium at nulla eu, lobortis mollis ligula. Curabitur in gravida quam. Sed tincidunt, justo.",
+      "category": "money",
       "id": 5
     },
     {
-      "title": "random note 2",
-      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum leo massa, quis aliquam est condimentum vitae. In faucibus efficitur cursus. Aenean volutpat posuere consequat. Aenean feugiat, enim egestas imperdiet aliquam, tortor purus auctor magna, eu pharetra ex erat vel mi. Nulla facilisi. Suspendisse potenti. Aenean in augue in nibh ultrices rutrum in ac est. Sed in facilisis sapien.\n\nNullam convallis tempus finibus. Nullam dolor justo, pretium at nulla eu, lobortis mollis ligula. Curabitur in gravida quam. Sed tincidunt, justo.",
-      "category": "money",
+      "title": "notes 6 ",
+      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rutrum leo massa, quis aliquam est condimentum vitae. In faucibus efficitur cursus. Aenean volutpat posuere consequat. Aenean feugiat, enim egestas imperdiet aliquam, tortor purus auctor magna, eu pharet",
+      "category": "work",
       "id": 6
     },
     {
-      "title": "New note",
-      "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tincidunt arcu sed libero eleifend interdum. Ut faucibus massa lacus, et condimentum augue rhoncus quis. Vivamus et justo sapien. Praesent fringilla, neque vel facilisis accumsan, nulla metus mattis diam, sit amet consectetur quam libero id odio. Ut pharetra velit sed ipsum pretium, sit amet varius nisi vulputate. Fusce sollicitudin, erat vel placerat auctor, ex libero sollicitudin lorem,",
+      "title": "rhbujfden",
+      "details": "hfrgjbenmfmewkfmew",
       "category": "work",
       "id": 7
-    },
-    {
-      "title": "Completed!!",
-      "details": "Task is completed!!! 😁",
-      "category": "reminder",
-      "id": 8
     }
   ]
 }
