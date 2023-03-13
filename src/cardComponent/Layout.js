@@ -18,7 +18,7 @@ const Layout = ({children}) => {
         {/* children elements - remaining components */}
         <Box sx ={{
                 background:"#EFFFFD",
-                padding : "95px",
+                padding : "110px 50px 30px",
                 width : "100%",
                 height:"100vh",
                 

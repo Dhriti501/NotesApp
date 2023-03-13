@@ -46,7 +46,7 @@ const LeftDrawer = ({drawerWidth}) => {
             color="secondary"
             // fontWeight="500"
         >
-            Dhriti's Notes App
+            📝  <b>Notes App</b> 
         </Typography>
         {/* List items */}
         <List>{

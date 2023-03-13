@@ -5,11 +5,12 @@ import CardContent from '@mui/material/CardContent';
 import { Avatar, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EventNoteIcon from '@mui/icons-material/EventNote';
+import moment from 'moment'
 
 const NoteCard = ({note, handleDelete}) => {
 
   return (
-    <Card elevation={2}>
+    <Card elevation={2} sx={{marginTop : '15px'}}>
         <CardHeader
             avatar={
               <Avatar sx={{backgroundColor:"#EB455F"}}
@@ -17,8 +18,6 @@ const NoteCard = ({note, handleDelete}) => {
                 <IconButton >
                   <EventNoteIcon sx={{ color: "white" }}/>
                 </IconButton>
-                
-                
                 </Avatar>
             }
             action={
@@ -29,9 +28,16 @@ const NoteCard = ({note, handleDelete}) => {
         title={note.data.title}
         subheader={note.data.category}
       />
+      <CardContent >
+        <div style={{overflowWrap: 'break-word',}}> 
+          <Typography variant="body2" color="text.secondary" >
+              {note.data.details}
+            </Typography>
+        </div>
+      </CardContent>
       <CardContent>
-      <Typography variant="body2" color="text.secondary">
-          {note.data.details}
+      <Typography align='center'>
+          Created on { moment(note.data.createdAt.toDate()).calendar()}          
         </Typography>
       </CardContent>
     </Card>

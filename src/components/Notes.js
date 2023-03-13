@@ -3,49 +3,51 @@ import { Container } from '@mui/system';
 import NoteCard from '../cardComponent/NoteCard';
 import Masonry from 'react-masonry-css';
 import db from '../firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = () => {
 
   const [notes, setNotes] = useState([]);
   const colRef = collection(db, 'notes');
+  const q = query(colRef, orderBy('createdAt','desc'))
 
+  //function for fetching notes 
   const fetchAllNotes = async () =>{
     try{
-        await onSnapshot(colRef,(snapshot)=>{
+        await onSnapshot(q,(snapshot)=>{
           setNotes(
             snapshot.docs.map((doc)=>({
               id:doc.id,
               data: doc.data(),
+              // createdAt: doc.data().createdAt.seconds,
             }))
           );
         })
     }catch(error){
       console.log(error.message);
     }
-
   } 
 
-  //FETCH NOTES 
+  //FETCH NOTES using useEffect at mounting time 
   useEffect(()=>{
     fetchAllNotes();
   },[])
   
-  // console.log(notes)
-  
+  console.log(notes)
   
   // DELETE Request 
   const handleDelete = async(id) =>{
-    await fetch('http://localhost:8000/notes/'+id , {
-      method : 'DELETE'
-    })
+    const docRef = doc(db,'notes',id)
     
-    const newNotes = notes.filter(note => note.id !== id)
-    setNotes(newNotes)
-    
+     deleteDoc(docRef)
+      .then(()=>{
+        // alert('note deleted!!')
+        console.log("deleted note!")
+      })
   }
   
-  return (
+  return (    
     <Container>
        <Masonry
         breakpointCols={3}
@@ -81,3 +83,10 @@ export default Notes
 //   })
 //   // setNotes(items);
 // })
+
+//DELETING NOTES FROM FAKE JSON API
+ // await fetch('http://localhost:8000/notes/'+id , {
+    //   method : 'DELETE'
+    // })
+    // const newNotes = notes.filter(note => note.id !== id)
+    // setNotes(newNotes)

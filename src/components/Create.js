@@ -7,11 +7,8 @@ import { useState } from 'react';
 import {RadioGroup, FormLabel,FormControlLabel, Radio} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
-
 import db from '../firebase';
-import { addDoc, collection } from 'firebase/firestore';
-
-
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -27,38 +24,31 @@ const Create = () => {
     e.preventDefault();
     if(!title){
       setTitleError(true);
+      setDetailsError(false);
     }
     if(!details){
+      setTitleError(false);
       setDetailsError(true);
+
     }
     if(title && details){
       setTitleError(false);
       setDetailsError(false);
-      // //POST Request
-      // fetch('http://localhost:8000/notes',
-      //   {
-      //     method : "POST",
-      //     headers : {"Content-type" : "application/json"},
-      //     body : JSON.stringify({title,details,category})
-      //   }
-      // ).then(() => navigate('/'))
-
+      
       addDoc(colRef,{
         title : title,
         details : details,
         category : category,
+        createdAt : serverTimestamp(),
       })
       .then(()=>{
-        // alert("Note has been added succesfully!")
         navigate('/')
       })
       .catch((err)=>console.log(err.message));
-
     }
   }
-
+  
   return (
-    
     <Container >
       {/* heading */}
         <Typography
@@ -66,7 +56,7 @@ const Create = () => {
             color = "textSecondary"   
             fontWeight="medium"   
             align = "center" 
-        >
+            >
             Create a new Note
         </Typography>
 
@@ -86,18 +76,18 @@ const Create = () => {
             /> 
           <TextField 
           onChange = { (e) => setDetails(e.target.value)}
-            label="Note  Body" 
-            variant="outlined"
-            color = "primary" 
-            required
-            fullWidth
-            multiline
-            rows={4}
-            sx = {{
-              margin : "25px"
-            }}
-            error={detailsError}
-            />
+          label="Note  Body" 
+          variant="outlined"
+          color = "primary" 
+          required
+          fullWidth
+          multiline
+          rows={4}
+          sx = {{
+            margin : "25px"
+          }}
+          error={detailsError}
+          />
             {/* radio buttons  */}
             <RadioGroup 
               value ={category} 
@@ -130,8 +120,17 @@ const Create = () => {
             </Box>      
         </form>
     </Container>   
-
-  )
+)
 }
-
 export default Create
+
+
+//JSON FORMAT TO ADD NOTE 
+// //POST Request
+// fetch('http://localhost:8000/notes',
+//   {
+//     method : "POST",
+//     headers : {"Content-type" : "application/json"},
+//     body : JSON.stringify({title,details,category})
+//   }
+// ).then(() => navigate('/'))
