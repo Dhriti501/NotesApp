@@ -1,11 +1,10 @@
 // json-server --watch data/db.json --port 8000
-//trying to check if this gets committed, testtttt
+
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Notes from "./components/Notes";
 import Create from "./components/Create";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Layout from "./cardComponent/Layout";
-
 
 const myTheme = createTheme({
   palette: {
@@ -19,11 +18,6 @@ const myTheme = createTheme({
   typography :{
     fontFamily : "Quicksand",
   },
-  // textField :{
-  //   margin: {
-  //     dense : "50px"
-  //   }
-  // },
   listItemText : {
     fontSize:'2em',
   }

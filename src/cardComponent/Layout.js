@@ -20,6 +20,7 @@ const Layout = ({children}) => {
                 background:"#EFFFFD",
                 padding : "95px",
                 width : "100%",
+                height:"100vh",
                 
         }}>
             {children}

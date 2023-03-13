@@ -8,6 +8,10 @@ import {RadioGroup, FormLabel,FormControlLabel, Radio} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 
+import db from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
+
+
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -17,6 +21,8 @@ const Create = () => {
   const [category, setCategory ] = useState("todo");
   const navigate = useNavigate();
 
+  const colRef = collection(db,'notes');
+                                       
   const handleSubmit = (e) => { 
     e.preventDefault();
     if(!title){
@@ -28,16 +34,26 @@ const Create = () => {
     if(title && details){
       setTitleError(false);
       setDetailsError(false);
+      // //POST Request
+      // fetch('http://localhost:8000/notes',
+      //   {
+      //     method : "POST",
+      //     headers : {"Content-type" : "application/json"},
+      //     body : JSON.stringify({title,details,category})
+      //   }
+      // ).then(() => navigate('/'))
 
-      //POST Request
-      fetch('http://localhost:8000/notes',
-        {
-          method : "POST",
-          headers : {"Content-type" : "application/json"},
-          body : JSON.stringify({title,details,category})
-        }
-      ).then(() => navigate('/'))
-        
+      addDoc(colRef,{
+        title : title,
+        details : details,
+        category : category,
+      })
+      .then(()=>{
+        // alert("Note has been added succesfully!")
+        navigate('/')
+      })
+      .catch((err)=>console.log(err.message));
+
     }
   }
 
@@ -107,6 +123,7 @@ const Create = () => {
                     color : "white",
                     fontSize : "18px",
                   }}
+                  className="submitBtn"
                   >
                   Create
               </Button> 
