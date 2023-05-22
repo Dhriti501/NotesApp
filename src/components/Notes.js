@@ -4,7 +4,6 @@ import NoteCard from '../cardComponent/NoteCard';
 import Masonry from 'react-masonry-css';
 import db from '../firebase';
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 
 const Notes = () => {
 
