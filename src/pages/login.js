@@ -1,11 +1,9 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -14,15 +12,17 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-// TODO remove, this demo shouldn't need to reset the theme.
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = (event) => {
     event.preventDefault();
@@ -30,18 +30,36 @@ export default function Login() {
     let email = data.get("email");
     let pass = data.get("password");
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, pass)
+
+    if(email && pass ){
+      signInWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
+        // const user = userCredential.user;
         setIsLoggedIn(true);
-        // ...
+        
+        //persisting email to local storage - CREATE SESSION        
+        localStorage.setItem('userEmail', userCredential.user.email);
+        var value = localStorage.getItem('userEmail');
+        // console.log("email persisted to local storage :", value);
+
+        navigate('/')
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.message)
+        if(error.message === "Firebase: Error (auth/wrong-password)."){
+          alert("Wrong password! Try again.")
+        }else if(error.message === "Firebase: Error (auth/user-not-found)."){
+          alert("Email is not registered.")
+        }else if(error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests)."){
+          alert("Too many requests made, try after sometime.")
+        }
+        // alert("User ID doesnt exist, please Sign Up to continue!")
+        // navigate('/signup')
       });
+    }else{
+      alert("Please enter valid details!!!")
+    }
   };
 
   return (

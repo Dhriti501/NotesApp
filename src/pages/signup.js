@@ -12,30 +12,66 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-// TODO remove, this demo shouldn't need to reset the theme.
+import { createUserWithEmailAndPassword, getAuth, signInWithRedirect } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import db from '../firebase';
+import { addDoc, collection, serverTimestamp} from 'firebase/firestore';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  //firestore db config
   const handleLogin = (event) => {
     event.preventDefault();
+    
     const data = new FormData(event.currentTarget);
     let email = data.get("email");
     let pass = data.get("password");
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
 
-        // ...
+    const auth = getAuth();
+
+    const newData = {
+      title : "Lets Get Started!",
+      details : "Find yourself forgetting to note down important things all the time? Struglling with deadlines? Use this notes app to always stay up tp date with all your work, with varied categories and interactive UI!",
+      category : 'todo',
+      createdAt : serverTimestamp(),
+    };
+
+    if(email && pass){
+      //signed in
+      createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        
+        //persisting email to local storage - CREATE SESSION        
+        localStorage.setItem('userEmail', userCredential.user.email);
+        var value = localStorage.getItem('userEmail');
+        console.log("email persisted to local storage :", value);
+
+        //creating a new collection for new signed in user 
+        const colRef = collection(db, userCredential.user.email);
+        addDoc(colRef,newData)
+        .then(() => {
+          console.log('Data successfully written to Firestore!');
+        })
+        .catch((error) => {
+          console.error('Error writing data to Firestore: ', error);
+        });
+      })
+      .then(()=>{
+        navigate('/')
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.message)
+
+        if(error.message === "Firebase: Error (auth/email-already-in-use)."){
+          alert("This email is already registered. Please login instead.")
+        }
       });
+    }else{
+      alert("Please enter valid details!!!!")
+    }
   };
 
   return (
@@ -69,7 +105,7 @@ export default function SignUp() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, bgcolor: "green" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">

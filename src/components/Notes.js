@@ -4,22 +4,30 @@ import NoteCard from '../cardComponent/NoteCard';
 import Masonry from 'react-masonry-css';
 import db from '../firebase';
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = () => {
-
+  
   const [notes, setNotes] = useState([]);
-  const colRef = collection(db, 'notes');
-  const q = query(colRef, orderBy('createdAt','desc'))
+  const signedInEmail = localStorage.getItem('userEmail');
+  
+  const navigate = useNavigate();
+
 
   //function for fetching notes 
-  const fetchAllNotes = async () =>{
+  const fetchUserNotes = async () =>{
+      // const colRef = collection(db, 'notes');
+  const colRef = collection(db, signedInEmail);
+
+  // console.log(auth.user)
+  const q = query(colRef, orderBy('createdAt','desc'))
+  
     try{
         await onSnapshot(q,(snapshot)=>{
           setNotes(
             snapshot.docs.map((doc)=>({
               id:doc.id,
               data: doc.data(),
-              // createdAt: doc.data().createdAt.seconds,
             }))
           );
         })
@@ -30,18 +38,20 @@ const Notes = () => {
 
   //FETCH NOTES using useEffect at mounting time 
   useEffect(()=>{
-    fetchAllNotes();
+    if (!signedInEmail){
+      navigate('/login')
+    }else{
+      fetchUserNotes();
+    }
   },[])
-  
-  console.log(notes)
-  
+
   // DELETE Request 
   const handleDelete = async(id) =>{
-    const docRef = doc(db,'notes',id)
+    // const docRef = doc(db,'notes',id)
+    const docRef = doc(db, signedInEmail,id)
     
      deleteDoc(docRef)
       .then(()=>{
-        // alert('note deleted!!')
         console.log("deleted note!")
       })
   }

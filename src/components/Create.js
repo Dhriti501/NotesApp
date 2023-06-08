@@ -16,9 +16,12 @@ const Create = () => {
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory ] = useState("todo");
-  const navigate = useNavigate();
 
-  const colRef = collection(db,'notes');
+  const navigate = useNavigate();
+  const signedInEmail = localStorage.getItem('userEmail');
+
+  // const colRef = collection(db,'notes');
+  const colRef = collection(db,signedInEmail);
                                        
   const handleSubmit = (e) => { 
     e.preventDefault();
