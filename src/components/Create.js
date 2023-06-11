@@ -59,6 +59,7 @@ const Create = () => {
             color = "textSecondary"   
             fontWeight="medium"   
             align = "center" 
+            marginTop ="-20px"
             >
             Create a new Note
         </Typography>
@@ -73,7 +74,7 @@ const Create = () => {
             fullWidth
             required
             sx = {{
-              margin : "25px"
+              margin : "25px",
             }}
             error = {titleError}
             /> 

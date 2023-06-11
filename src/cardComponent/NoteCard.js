@@ -19,6 +19,13 @@ const NoteCard = ({note, handleDelete}) => {
     reminder : "#FFD700",
   }
 
+  //resolving toDate error 
+  try{
+    var dateCreated = moment(note.data.createdAt.toDate()).calendar();
+  }catch(e){
+    // console.log(e);
+  }
+
   const categoryIcon = () => {
     if(note.data.category === "money"){
       return <CurrencyRupeeIcon sx={{color : "white"}}/>;
@@ -33,6 +40,7 @@ const NoteCard = ({note, handleDelete}) => {
   };
 
   const defaultColor = "grey"
+  // console.log("this is note data : ",note.data);
 
   return (
     <Card elevation={2} sx={{marginTop : '15px'}}>
@@ -63,7 +71,8 @@ const NoteCard = ({note, handleDelete}) => {
       </CardContent>
       <CardContent>
       <Typography align='center'>
-          Created on { moment(note.data.createdAt.toDate()).calendar()}          
+          {/* Created on { moment(note.data.createdAt.toDate()).calendar()}           */}
+          Created on {dateCreated}          
         </Typography>
       </CardContent>
     </Card>

@@ -14,11 +14,17 @@ const AppHeader = ({drawerWidth}) => {
   const navigate = useNavigate();
 
   //getting current user 
+  
   const signedInEmail = localStorage.getItem('userEmail');
+  var name;
+  if(signedInEmail){
+    //getting user name from email using regex
+    const userName = signedInEmail.match(/^([^@]*)@/)[1];
+    name = userName.charAt(0).toUpperCase() + userName.slice(1);
+  }else{
+    name = null;
+  }
 
-  //getting user name from email using regex
-  const userName = signedInEmail.match(/^([^@]*)@/)[1];
-  const name = userName.charAt(0).toUpperCase() + userName.slice(1);
 
   //sign out current user
   const signoutUser = () => {

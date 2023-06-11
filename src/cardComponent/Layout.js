@@ -19,7 +19,7 @@ const Layout = ({children}) => {
         <Box sx ={{
                 background:"#EFFFFD",
                 padding : "110px 50px 30px",
-                width : "100%",
+                width : "80vw",
                 height:"100vh",
                 
         }}>
